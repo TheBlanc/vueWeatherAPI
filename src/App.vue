@@ -12,7 +12,7 @@
       </div>
 
       <div class="container content" v-if="typeof weather.main == 'undefined'">
-        <h1 class="default-text has-text-white mt-6">Check the Weather!</h1>
+        <h1 class="has-text-white mt-6 default-text">Check the Weather!</h1>
       </div>
 
       <div class="weather-wrap" v-if="typeof weather.main != 'undefined'">
@@ -142,7 +142,8 @@ main.cloudy {
 }
 
 .default-text {
-  font-family: cursive;
+  font-family: monospace;
+  font-weight: bold;
   letter-spacing: 1.5px;
 }
 
@@ -184,14 +185,11 @@ main.cloudy {
 }
 .weather-box .temp {
   display: inline-block;
-  padding: 10px 25px;
   color: #FFF;
   font-size: 102px;
   font-weight: 900;
   text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
-  background-color:rgba(255, 255, 255, 0.25);
   border-radius: 16px;
-  margin: 30px 0px;
 }
 .weather-box .weather {
   color: #FFF;
@@ -200,4 +198,5 @@ main.cloudy {
   font-style: italic;
   text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
 }
+
 </style>
