@@ -104,7 +104,7 @@ export default {
   box-sizing: border-box;
 }
 body {
-  font-family: 'montserrat', sans-serif;
+  font-family: monospace;
   background-color: #f4f4f4;
 }
 #app {
@@ -142,7 +142,6 @@ main.cloudy {
 }
 
 .default-text {
-  font-family: monospace;
   font-weight: bold;
   letter-spacing: 1.5px;
 }
