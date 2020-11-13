@@ -2,4 +2,4 @@
 
 ## Made with Vue.js, Bulma and OpenWeather API
 
-See [Live Site](http://kevinleblanc.io/vueWeatherApp/).
+Visit the [Live Site Here](http://kevinleblanc.io/vueWeatherApp/).
