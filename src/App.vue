@@ -165,7 +165,7 @@ main {
   padding: 25px;
 }
 main.clear {
-  background-image: linear-gradient(to bottom, #7979792b, #0000003b);
+  background-image: linear-gradient(to bottom, #7979792b, #0000001a);
   transition: 0.4s;
 }
 main.cloudy {
