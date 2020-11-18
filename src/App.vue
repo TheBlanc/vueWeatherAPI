@@ -23,6 +23,7 @@
 
         <div class="weather-box">
           <div class="temp">{{ Math.round(weather.main.temp) }}°c</div>
+          <div class="weather-icon" :class="computedWeatherIconClass"></div>
           <div class="weather">{{ weather.weather[0].main }}</div>
         </div>
       </div>
@@ -61,17 +62,17 @@ export default {
       let date = d.getDate();
       let month = months[d.getMonth()];
       let year = d.getFullYear();
-      return `${day} ${date} ${month} ${year}`;
+      return `${day} ${month} ${date}, ${year}`;
     }
   },
   computed: {
     computedBackgroundImageClass() {
       var className = "";
-      if (typeof this.weather.main != 'undefined' && this.weather.main.temp > 12 && this.weather.main.temp <= 20) {
+      if (typeof this.weather.main != 'undefined' && this.weather.main.temp > 1 && this.weather.main.temp <= 20) {
         className = "warm";
       } else if (typeof this.weather.main != 'undefined' && this.weather.main.temp > 20) {
         className = "hot";
-      } else if (typeof this.weather.main != 'undefined' && this.weather.main.temp <= 11) {
+      } else if (typeof this.weather.main != 'undefined' && this.weather.main.temp <= 1) {
         className = "cold";
       } else {
         className = "";
@@ -82,8 +83,29 @@ export default {
       var className = "";
       if (typeof this.weather.main != 'undefined' && this.weather.weather[0].main == 'Clear') {
         className = "clear";
-      } else if (typeof this.weather.main != 'undefined' && this.weather.weather[0].main == 'Clouds' ) {
-        className = "clear";
+      } else if (typeof this.weather.main != 'undefined' && this.weather.weather[0].main == 'Rain') {
+        className = "rain";
+      } else if (typeof this.weather.main != 'undefined' && this.weather.weather[0].main == 'Thunderstorm') {
+        className = "thunder";
+      } else if (typeof this.weather.main == 'undefined') {
+        className = "";
+      } else {
+        className = "cloudy";
+      }
+       return className;
+    },
+    computedWeatherIconClass() {
+      var className = "";
+      if (typeof this.weather.main != 'undefined' && this.weather.weather[0].description == 'few clouds: 11-25%') {
+        className = "partial-sun";
+      } else if (typeof this.weather.main != 'undefined' && this.weather.weather[0].main == 'Clear' ) {
+        className = "sun";
+      } else if (typeof this.weather.main != 'undefined' && this.weather.weather[0].main == 'Rain') {
+        className = "rain";
+      } else if (typeof this.weather.main != 'undefined' && this.weather.weather[0].main == 'Snow') {
+        className = "snow";
+      } else if (typeof this.weather.main != 'undefined' && this.weather.weather[0].main == 'Thunderstorm') {
+        className = "thunder";
       } else if (typeof this.weather.main == 'undefined') {
         className = "";
       } else {
@@ -92,21 +114,31 @@ export default {
        return className;
     }
 
+
   }
 }
 </script>
 
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: monospace;
   background-color: #f4f4f4;
 }
+
+h1 {
+
+  text-shadow: 1px 1px 6px rgb(0 0 0 / 71%);
+}
+
 #app {
   background-image: url('./assets/default-bg.jpg');
   background-size: cover;
@@ -131,14 +163,19 @@ main {
   text-align: center;
   min-height: 100vh;
   padding: 25px;
-  background-image: linear-gradient(to bottom, rgb(0 0 0 / 0%), rgb(0 0 0 / 44%));
 }
 main.clear {
   background-image: linear-gradient(to bottom, #7979792b, #0000003b);
   transition: 0.4s;
 }
 main.cloudy {
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.75));
+  background-image: linear-gradient(to bottom, rgb(0 0 0 / 11%), rgb(0 0 0 / 48%));
+}
+main.rain {
+  background-image: linear-gradient(to bottom, rgb(0 0 0 / 32%), rgb(0 0 0 / 59%));
+}
+main.thunder {
+  background-image: linear-gradient(to bottom, rgb(0 0 0 / 51%), rgb(0 0 0 / 62%));
 }
 
 .default-text {
@@ -180,6 +217,7 @@ main.cloudy {
   text-align: center;
 }
 .weather-box {
+  font-family: 'Montserrat', sans-serif;
   text-align: center;
 }
 .weather-box .temp {
@@ -187,15 +225,51 @@ main.cloudy {
   color: #FFF;
   font-size: 102px;
   font-weight: 900;
-  text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
+  text-shadow: 4px 5px 1px rgb(0 0 0 / 29%);
   border-radius: 16px;
+  line-height: 5rem;
+  margin-top: 1.5rem;
 }
 .weather-box .weather {
+  font-family: monospace;
   color: #FFF;
   font-size: 48px;
   font-weight: 700;
   font-style: italic;
-  text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
+  line-height: 50px;
+  text-shadow: 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.weather-icon {
+  margin: auto;
+  margin-top: 10px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 90px;
+  height: 90px;
+}
+
+.weather-icon.partial-sun {
+  background-image: url('./assets/partial-sun.png');
+}
+.weather-icon.sun {
+  background-image: url('./assets/sun.png');
+}
+.weather-icon.cloudy {
+  background-image: url('./assets/cloudy.png');
+}
+.weather-icon.rain {
+  background-image: url('./assets/rain.png');
+}
+.weather-icon.snow {
+  background-image: url('./assets/snow.png');
+}
+.weather-icon.thunder {
+  background-image: url('./assets/thunder.png');
+}
+.weather-icon.wind {
+  background-image: url('./assets/wind.png');
 }
 
 </style>
